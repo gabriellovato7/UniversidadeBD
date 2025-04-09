@@ -8,9 +8,7 @@ erDiagram
     PROFESSOR ||--o| CURSO : coordena
     PROFESSOR ||--|{ DISCIPLINALECIONADA : leciona
     PROFESSOR ||--o{ TCC : orienta
-    PROFESSOR }o--|| DEPARTAMENTO : pertence
 
-    DEPARTAMENTO ||--o{ PROFESSOR : possui
     CURSO ||--o{ ALUNO : possui
     CURSO ||--o{ MATRIZCURRICULAR : contem
     CURSO ||--o{ DISCIPLINA : possui
@@ -26,7 +24,6 @@ erDiagram
     PROFESSOR {
         int id
         text nome
-        int departamento_id
     }
 
     DEPARTAMENTO {
@@ -52,7 +49,6 @@ erDiagram
         int id
         text nome
         text codigo
-        int curso_id
     }
 
     DISCIPLINALECIONADA {
@@ -70,7 +66,7 @@ erDiagram
         numeric nota
         boolean aprovado
     }
-
+    
     TCC {
         int id
         text titulo
