@@ -107,7 +107,29 @@ try:
             print("Aluno inserido com sucesso!")
         else:
             print(f"Curso '{curso_nome}' não encontrado. Verifique o nome e tente novamente.")
+            
+    def inserir_disciplina():
+        nome = input("Digite o nome da disciplina: ")
+        codigo = input("Digite o código da disciplina: ")
+        curso_id = input("Digite o ID do curso da disciplina (obrigatório): ")
 
+        if not curso_id.strip():
+            print("Não é possível inserir a disciplina sem um curso.")
+            return
+
+        sql = "INSERT INTO Disciplina (nome, codigo, curso_id) VALUES (%s, %s, %s)"
+        cursor.execute(sql, (nome, codigo, curso_id))
+        conn.commit()
+        print("Disciplina inserida com sucesso!")
+
+    def inserir_disciplina_lecionada():
+        professor_id = input("Digite o ID do professor: ")
+        disciplina_id = input("Digite o ID da disciplina: ")
+        semestre = input("Digite o semestre: ")
+        sql = "INSERT INTO DisciplinaLecionada (professor_id, disciplina_id, semestre) VALUES (%s, %s, %s)"
+        cursor.execute(sql, (professor_id, disciplina_id, semestre))
+        conn.commit()
+        print("Disciplina lecionada inserida com sucesso!")
 
     while True:
         print("\n--- MENU ---")
@@ -117,6 +139,8 @@ try:
         print("4 - Atualizar Chefe do Departamento")
         print("5 - Inserir Curso")
         print("6 - Inserir Aluno")
+        print("7 - Inserir Disciplina")
+        print("8 - Inserir Disciplina Lecionada")
         print("0 - Sair")
 
         opcao = input("Escolha a opção: ")
@@ -133,6 +157,10 @@ try:
             inserir_curso()
         elif opcao == "6":
             inserir_aluno()
+        elif opcao == "7":
+            inserir_disciplina()
+        elif opcao == "8":
+            inserir_disciplina_lecionada()
         elif opcao == "0":
             break
         else:
