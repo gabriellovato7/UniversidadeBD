@@ -36,33 +36,11 @@ try:
 
     def inserir_professor():
         nome = input("Digite o nome do professor: ")
-        departamento_id = input("Digite o ID do departamento (ou deixe em branco): ")
 
-        if departamento_id:
-            cursor.execute("SELECT id FROM Departamento WHERE id = %s", (departamento_id,))
-            if not cursor.fetchone():
-                print(f"Erro: Departamento {departamento_id} não encontrado.")
-                return
-        else:
-            departamento_id = None
-
-        sql = "INSERT INTO Professor (nome, departamento_id) VALUES (%s, %s)"
-        cursor.execute(sql, (nome, departamento_id))
+        sql = "INSERT INTO Professor (nome) VALUES (%s)"
+        cursor.execute(sql, (nome,))
         conn.commit()
         print("Professor inserido com sucesso!")
-
-    def atualizar_departamento_professor():
-        professor_id = input("Digite o ID do professor: ")
-        novo_departamento_id = input("Digite o novo ID do departamento: ")
-
-        cursor.execute("SELECT id FROM Departamento WHERE id = %s", (novo_departamento_id,))
-        if not cursor.fetchone():
-            print(f"Erro: Departamento Id {novo_departamento_id} não encontrado.")
-            return
-
-        cursor.execute("UPDATE Professor SET departamento_id = %s WHERE id = %s", (novo_departamento_id, professor_id))
-        conn.commit()
-        print("Departamento do professor atualizado com sucesso!")
 
     def atualizar_chefe_departamento():
         departamento_id = input("Digite o ID do departamento: ")
@@ -111,14 +89,9 @@ try:
     def inserir_disciplina():
         nome = input("Digite o nome da disciplina: ")
         codigo = input("Digite o código da disciplina: ")
-        curso_id = input("Digite o ID do curso da disciplina (obrigatório): ")
 
-        if not curso_id.strip():
-            print("Não é possível inserir a disciplina sem um curso.")
-            return
-
-        sql = "INSERT INTO Disciplina (nome, codigo, curso_id) VALUES (%s, %s, %s)"
-        cursor.execute(sql, (nome, codigo, curso_id))
+        sql = "INSERT INTO Disciplina (nome, codigo) VALUES (%s, %s)"
+        cursor.execute(sql, (nome, codigo))
         conn.commit()
         print("Disciplina inserida com sucesso!")
 
@@ -131,16 +104,36 @@ try:
         conn.commit()
         print("Disciplina lecionada inserida com sucesso!")
 
+    def inserir_matrizcurricular():
+        curso_id = input("Digite o ID do curso: ")
+        disciplina_id = input("Digite o ID da disciplina: ")
+
+        cursor.execute("SELECT id FROM Curso WHERE id = %s", (curso_id,))
+        if not cursor.fetchone():
+            print(f"Erro: Curso com ID {curso_id} não encontrado.")
+            return
+
+        cursor.execute("SELECT id FROM Disciplina WHERE id = %s", (disciplina_id,))
+        if not cursor.fetchone():
+            print(f"Erro: Disciplina com ID {disciplina_id} não encontrada.")
+            return
+
+        sql = "INSERT INTO MatrizCurricular (curso_id, disciplina_id) VALUES (%s, %s)"
+        cursor.execute(sql, (curso_id, disciplina_id))
+        conn.commit()
+        print("Disciplina e Curso adicionada a Matriz Curricular com sucesso!")
+
+
     while True:
         print("\n--- MENU ---")
         print("1 - Inserir Departamento")
         print("2 - Inserir Professor")
-        print("3 - Atualizar Departamento do Professor")
-        print("4 - Atualizar Chefe do Departamento")
-        print("5 - Inserir Curso")
-        print("6 - Inserir Aluno")
-        print("7 - Inserir Disciplina")
-        print("8 - Inserir Disciplina Lecionada")
+        print("3 - Atualizar Chefe do Departamento")
+        print("4 - Inserir Curso")
+        print("5 - Inserir Aluno")
+        print("6 - Inserir Disciplina")
+        print("7 - Inserir Disciplina Lecionada")
+        print("8 - Inserir Matriz Curricular")
         print("0 - Sair")
 
         opcao = input("Escolha a opção: ")
@@ -161,6 +154,8 @@ try:
             inserir_disciplina()
         elif opcao == "8":
             inserir_disciplina_lecionada()
+        elif opcao == "9":
+            inserir_matrizcurricular()
         elif opcao == "0":
             break
         else:
