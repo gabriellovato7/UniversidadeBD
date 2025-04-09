@@ -77,12 +77,46 @@ try:
         conn.commit()
         print("Chefe do departamento atualizado com sucesso!")
 
+    def inserir_curso():
+        nome = input("Digite o nome do curso: ")
+        coordenador_id = input("Digite o ID do coordenador (obrigatório): ")
+
+        if not coordenador_id.strip():
+            print("Não é possível inserir o curso sem um coordenador.")
+            return
+
+        sql = "INSERT INTO Curso (nome, coordenador_id) VALUES (%s, %s)"
+        cursor.execute(sql, (nome, coordenador_id))
+        conn.commit()
+        print("Curso inserido com sucesso!")
+
+
+    def inserir_aluno():
+        nome = input("Digite o nome do aluno: ")
+        matricula = input("Digite a matrícula do aluno: ")
+        curso_nome = input("Digite o Nome do curso do aluno: ")
+    
+        cursor.execute("SELECT id FROM Curso WHERE nome = %s", (curso_nome,))
+        resultado = cursor.fetchone()
+
+        if resultado:
+            curso_id = resultado[0]
+            sql = "INSERT INTO Aluno (nome, matricula, curso_id) VALUES (%s, %s, %s)"
+            cursor.execute(sql, (nome, matricula, curso_id))
+            conn.commit()
+            print("Aluno inserido com sucesso!")
+        else:
+            print(f"Curso '{curso_nome}' não encontrado. Verifique o nome e tente novamente.")
+
+
     while True:
         print("\n--- MENU ---")
         print("1 - Inserir Departamento")
         print("2 - Inserir Professor")
         print("3 - Atualizar Departamento do Professor")
         print("4 - Atualizar Chefe do Departamento")
+        print("5 - Inserir Curso")
+        print("6 - Inserir Aluno")
         print("0 - Sair")
 
         opcao = input("Escolha a opção: ")
@@ -95,6 +129,10 @@ try:
             atualizar_departamento_professor()
         elif opcao == "4":
             atualizar_chefe_departamento()
+        elif opcao == "5":
+            inserir_curso()
+        elif opcao == "6":
+            inserir_aluno()
         elif opcao == "0":
             break
         else:
