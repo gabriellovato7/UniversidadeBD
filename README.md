@@ -13,6 +13,7 @@ erDiagram
     DEPARTAMENTO ||--o{ PROFESSOR : possui
     CURSO ||--o{ ALUNO : possui
     CURSO ||--o{ MATRIZCURRICULAR : contem
+    CURSO ||--o{ DISCIPLINA : possui
 
     DISCIPLINA ||--o{ DISCIPLINALECIONADA : pertence
     DISCIPLINA ||--o{ HISTORICOESCOLAR : aparece
@@ -51,6 +52,7 @@ erDiagram
         int id
         text nome
         text codigo
+        int curso_id
     }
 
     DISCIPLINALECIONADA {
