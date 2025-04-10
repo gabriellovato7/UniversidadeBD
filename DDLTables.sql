@@ -43,3 +43,15 @@ CREATE TABLE IF NOT EXISTS HistoricoEscolar (
     nota NUMERIC(3,1),
     aprovado BOOLEAN
 );
+
+CREATE TABLE IF NOT EXISTS AlunoTCC (
+    id SERIAL PRIMARY KEY,
+    aluno_id INT REFERENCES Aluno(id),
+    tcc_id INT REFERENCES TCC(id)
+);
+
+CREATE TABLE IF NOT EXISTS MatrizCurricular (
+    curso_id INT REFERENCES Curso(id),
+    disciplina_id INT REFERENCES Disciplina(id),
+    PRIMARY KEY (curso_id, disciplina_id)
+);
