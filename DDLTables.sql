@@ -14,3 +14,16 @@ CREATE TABLE IF NOT EXISTS Curso (
     nome TEXT NOT NULL,
     coordenador_id INT REFERENCES Professor(id)
 );
+
+CREATE TABLE IF NOT EXISTS Aluno (
+    id SERIAL PRIMARY KEY,
+    nome TEXT NOT NULL,
+    matricula TEXT NOT NULL,
+    curso_id INT REFERENCES Curso(id)
+);
+
+CREATE TABLE IF NOT EXISTS Disciplina (
+    id SERIAL PRIMARY KEY,
+    nome TEXT NOT NULL,
+    codigo TEXT NOT NULL
+);
