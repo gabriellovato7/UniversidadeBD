@@ -123,39 +123,55 @@ try:
         conn.commit()
         print("Disciplina e Curso adicionada a Matriz Curricular com sucesso!")
 
+    def inserir_historico():
+        aluno_id = input("Digite o ID do aluno: ")
+        disciplina_id = input("Digite o ID da disciplina: ")
+        semestre = input("Digite o semestre (ex: 5° semestre): ")
+        nota = float(input("Digite a nota: "))
+        aprovado_input = input("Aprovado? (1 para sim, 0 para não): ")
+
+        aprovado = True if aprovado_input == "1" else False
+
+        sql = "INSERT INTO HistoricoEscolar (aluno_id, disciplina_id, semestre, nota, aprovado) VALUES (%s, %s, %s, %s, %s)"
+        cursor.execute(sql, (aluno_id, disciplina_id, semestre, nota, aprovado))
+        conn.commit()
+        print("Histórico inserido com sucesso!")
+
+
 
     while True:
         print("\n--- MENU ---")
-        print("1 - Inserir Departamento")
-        print("2 - Inserir Professor")
+        print("1 - Inserir Professor")
+        print("2 - Inserir Departamento")
         print("3 - Atualizar Chefe do Departamento")
         print("4 - Inserir Curso")
         print("5 - Inserir Aluno")
         print("6 - Inserir Disciplina")
         print("7 - Inserir Disciplina Lecionada")
         print("8 - Inserir Matriz Curricular")
+        print("9 - Inserir Histórico")
         print("0 - Sair")
 
         opcao = input("Escolha a opção: ")
 
         if opcao == "1":
-            inserir_departamento()
-        elif opcao == "2":
             inserir_professor()
+        elif opcao == "2":
+            inserir_departamento()
         elif opcao == "3":
-            atualizar_departamento_professor()
-        elif opcao == "4":
             atualizar_chefe_departamento()
-        elif opcao == "5":
+        elif opcao == "4":
             inserir_curso()
-        elif opcao == "6":
+        elif opcao == "5":
             inserir_aluno()
-        elif opcao == "7":
+        elif opcao == "6":
             inserir_disciplina()
-        elif opcao == "8":
+        elif opcao == "7":
             inserir_disciplina_lecionada()
-        elif opcao == "9":
+        elif opcao == "8":
             inserir_matrizcurricular()
+        elif opcao == "9":
+            inserir_historico()
         elif opcao == "0":
             break
         else:
