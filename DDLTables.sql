@@ -27,3 +27,19 @@ CREATE TABLE IF NOT EXISTS Disciplina (
     nome TEXT NOT NULL,
     codigo TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS DisciplinaLecionada (
+    id SERIAL PRIMARY KEY,
+    professor_id INT REFERENCES Professor(id),
+    disciplina_id INT REFERENCES Disciplina(id),
+    semestre TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS HistoricoEscolar (
+    id SERIAL PRIMARY KEY,
+    aluno_id INT REFERENCES Aluno(id),
+    disciplina_id INT REFERENCES Disciplina(id),
+    semestre TEXT NOT NULL,
+    nota NUMERIC(3,1),
+    aprovado BOOLEAN
+);
