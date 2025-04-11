@@ -1,3 +1,4 @@
+1.
 SELECT 
     a.nome AS aluno,
     d.codigo AS cod_disciplina,
@@ -31,3 +32,31 @@ ORDER BY
     h.aluno_id,
     d.id,
     h.semestre;
+
+
+3.
+SELECT 
+    c.nome AS curso,
+    d.nome AS disciplina,
+    d.codigo
+FROM 
+    MatrizCurricular m
+JOIN 
+    Curso c ON c.id = m.curso_id
+JOIN 
+    Disciplina d ON d.id = m.disciplina_id
+WHERE 
+    c.nome = 'Ciências de Dados';
+
+SELECT 
+    c.nome AS curso,
+    d.nome AS disciplina,
+    d.codigo
+FROM 
+    MatrizCurricular m
+JOIN 
+    Curso c ON c.id = m.curso_id
+JOIN 
+    Disciplina d ON d.id = m.disciplina_id
+WHERE 
+    c.nome = 'Ciências da Computação';
