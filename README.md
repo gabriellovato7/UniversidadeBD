@@ -86,3 +86,17 @@ erDiagram
         int curso_id
         int disciplina_id
     }
+```
+
+
+## Digrama Modelo Relacional
+
+
+![MR PROJETO 1 BD](https://github.com/user-attachments/assets/f968789d-e309-4a08-b6c0-c75773c0331b)
+
+
+
+
+
+
+
