@@ -79,3 +79,18 @@ WHERE
     h.aluno_id = 1 
 ORDER BY 
     h.semestre;
+
+
+5.
+SELECT 
+    p.nome AS professor,
+    COALESCE(d.nome, 'nenhum') AS departamento_chefiado,
+    COALESCE(c.nome, 'nenhum') AS curso_coordenado
+FROM 
+    Professor p
+LEFT JOIN 
+    Departamento d ON d.chefe_id = p.id
+LEFT JOIN 
+    Curso c ON c.coordenador_id = p.id
+ORDER BY 
+    p.nome;
