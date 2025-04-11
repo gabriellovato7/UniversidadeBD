@@ -34,6 +34,25 @@ ORDER BY
     h.semestre;
 
 
+2.
+    SELECT 
+    p.nome AS professor,
+    t.titulo AS tcc,
+    a.nome AS aluno
+FROM 
+    TCC t
+JOIN 
+    Professor p ON p.id = t.orientador_id
+JOIN 
+    AlunoTCC at ON at.tcc_id = t.id
+JOIN 
+    Aluno a ON a.id = at.aluno_id
+WHERE 
+    p.id = 1  
+ORDER BY 
+    t.titulo;
+
+
 3.
 SELECT 
     c.nome AS curso,
