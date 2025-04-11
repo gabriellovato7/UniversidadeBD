@@ -20,7 +20,8 @@ try:
     def inserir_departamento():
         nome = input("Digite o nome do departamento: ")
         chefe_id = input("Digite o ID do chefe (ou deixe em branco): ")
-
+        orcamento = input("Digite o orçamento do departamento: ")
+    
         if chefe_id:
             cursor.execute("SELECT id FROM Professor WHERE id = %s", (chefe_id,))
             if not cursor.fetchone():
@@ -28,11 +29,18 @@ try:
                 return
         else:
             chefe_id = None
-
-        sql = "INSERT INTO Departamento (nome, chefe_id) VALUES (%s, %s)"
-        cursor.execute(sql, (nome, chefe_id))
+    
+        try:
+            orcamento = float(orcamento)
+        except ValueError:
+            print("Erro: Orçamento deve ser um número.")
+            return
+    
+        sql = "INSERT INTO Departamento (nome, chefe_id, orcamento) VALUES (%s, %s, %s)"
+        cursor.execute(sql, (nome, chefe_id, orcamento))
         conn.commit()
         print("Departamento inserido com sucesso!")
+
 
     def inserir_professor():
         nome = input("Digite o nome do professor: ")
@@ -58,16 +66,30 @@ try:
     def inserir_curso():
         nome = input("Digite o nome do curso: ")
         coordenador_id = input("Digite o ID do coordenador (obrigatório): ")
+        departamento_id = input("Digite o ID do departamento (obrigatório): ")
 
         if not coordenador_id.strip():
             print("Não é possível inserir o curso sem um coordenador.")
             return
 
-        sql = "INSERT INTO Curso (nome, coordenador_id) VALUES (%s, %s)"
-        cursor.execute(sql, (nome, coordenador_id))
+        if not departamento_id.strip():
+            print("Não é possível inserir o curso sem um departamento.")
+            return
+    
+        cursor.execute("SELECT id FROM Professor WHERE id = %s", (coordenador_id,))
+        if not cursor.fetchone():
+            print(f"Erro: Não existe professor com ID {coordenador_id}.")
+            return
+
+        cursor.execute("SELECT id FROM Departamento WHERE id = %s", (departamento_id,))
+        if not cursor.fetchone():
+            print(f"Erro: Não existe departamento com ID {departamento_id}.")
+            return
+
+        sql = "INSERT INTO Curso (nome, coordenador_id, departamento_id) VALUES (%s, %s, %s)"
+        cursor.execute(sql, (nome, coordenador_id, departamento_id))
         conn.commit()
         print("Curso inserido com sucesso!")
-
 
     def inserir_aluno():
         nome = input("Digite o nome do aluno: ")
@@ -152,8 +174,6 @@ try:
         cursor.execute(sql, (aluno_id, tcc_id))
         conn.commit()
         print("Aluno vinculado ao TCC com sucesso!")
-
-
 
     while True:
         print("\n--- MENU ---")
