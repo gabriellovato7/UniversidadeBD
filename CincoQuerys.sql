@@ -1,4 +1,4 @@
-1.
+--1.
 SELECT 
     a.nome AS aluno,
     d.codigo AS cod_disciplina,
@@ -34,7 +34,7 @@ ORDER BY
     h.semestre;
 
 
-2.
+--2.
     SELECT 
     p.nome AS professor,
     t.titulo AS tcc,
@@ -53,7 +53,7 @@ ORDER BY
     t.titulo;
 
 
-3.
+--3.
 SELECT 
     c.nome AS curso,
     d.nome AS disciplina,
@@ -81,7 +81,7 @@ WHERE
     c.nome = 'Ciências da Computação';
 
 
-4.
+--4.
 SELECT 
     d.codigo,
     d.nome AS disciplina,
@@ -100,7 +100,7 @@ ORDER BY
     h.semestre;
 
 
-5.
+--5.
 SELECT 
     p.nome AS professor,
     COALESCE(d.nome, 'nenhum') AS departamento_chefiado,
