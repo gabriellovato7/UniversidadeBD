@@ -1,6 +1,6 @@
 # UniversidadeBD
 
-## Diagrama Entidade-Relacionamento (ER)
+## Diagrama Modelo Entidade Relacionamento (MER)
 
 ```mermaid
 erDiagram
@@ -12,6 +12,7 @@ erDiagram
     CURSO ||--o{ ALUNO : possui
     CURSO ||--o{ MATRIZCURRICULAR : contem
     CURSO ||--o{ DISCIPLINA : possui
+    CURSO ||--o| DEPARTAMENTO : pertence
 
     DISCIPLINA ||--o{ DISCIPLINALECIONADA : pertence
     DISCIPLINA ||--o{ HISTORICOESCOLAR : aparece
@@ -30,12 +31,14 @@ erDiagram
         int id
         text nome
         int chefe_id
+        numeric orcamento
     }
 
     CURSO {
         int id
         text nome
         int coordenador_id
+        int departamento_id
     }
 
     ALUNO {
@@ -66,7 +69,7 @@ erDiagram
         numeric nota
         boolean aprovado
     }
-    
+
     TCC {
         int id
         text titulo
