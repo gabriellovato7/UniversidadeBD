@@ -6,13 +6,15 @@ CREATE TABLE IF NOT EXISTS Professor (
 CREATE TABLE IF NOT EXISTS Departamento (
     id SERIAL PRIMARY KEY,
     nome TEXT NOT NULL,
-    chefe_id INT REFERENCES Professor(id)
+    chefe_id INT REFERENCES Professor(id),
+    orcamento NUMERIC(12,2)
 );
 
 CREATE TABLE IF NOT EXISTS Curso (
     id SERIAL PRIMARY KEY,
     nome TEXT NOT NULL,
-    coordenador_id INT REFERENCES Professor(id)
+    coordenador_id INT REFERENCES Professor(id),
+    departamento_id INT NOT NULL REFERENCES Departamento(id)
 );
 
 CREATE TABLE IF NOT EXISTS Aluno (
