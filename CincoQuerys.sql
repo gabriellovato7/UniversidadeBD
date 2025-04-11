@@ -60,3 +60,22 @@ JOIN
     Disciplina d ON d.id = m.disciplina_id
 WHERE 
     c.nome = 'Ciências da Computação';
+
+
+4.
+SELECT 
+    d.codigo,
+    d.nome AS disciplina,
+    p.nome AS professor
+FROM 
+    HistoricoEscolar h
+JOIN 
+    Disciplina d ON d.id = h.disciplina_id
+JOIN 
+    DisciplinaLecionada dl ON dl.disciplina_id = d.id AND dl.semestre = h.semestre
+JOIN 
+    Professor p ON p.id = dl.professor_id
+WHERE 
+    h.aluno_id = 1 
+ORDER BY 
+    h.semestre;
