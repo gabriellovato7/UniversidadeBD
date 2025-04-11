@@ -44,6 +44,12 @@ CREATE TABLE IF NOT EXISTS HistoricoEscolar (
     aprovado BOOLEAN
 );
 
+CREATE TABLE IF NOT EXISTS TCC (
+    id SERIAL PRIMARY KEY,
+    titulo TEXT NOT NULL,
+    orientador_id INT REFERENCES Professor(id)
+);
+
 CREATE TABLE IF NOT EXISTS AlunoTCC (
     id SERIAL PRIMARY KEY,
     aluno_id INT REFERENCES Aluno(id),
