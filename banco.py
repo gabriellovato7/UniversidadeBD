@@ -137,6 +137,22 @@ try:
         conn.commit()
         print("Histórico inserido com sucesso!")
 
+    def inserir_tcc():
+        titulo = input("Digite o título do TCC: ")
+        orientador_id = input("Digite o ID do orientador: ")
+        sql = "INSERT INTO TCC (titulo, orientador_id) VALUES (%s, %s)"
+        cursor.execute(sql, (titulo, orientador_id))
+        conn.commit()
+        print("TCC inserido com sucesso!")
+
+    def inserir_aluno_tcc():
+        aluno_id = input("Digite o ID do aluno: ")
+        tcc_id = input("Digite o ID do TCC: ")
+        sql = "INSERT INTO AlunoTCC (aluno_id, tcc_id) VALUES (%s, %s)"
+        cursor.execute(sql, (aluno_id, tcc_id))
+        conn.commit()
+        print("Aluno vinculado ao TCC com sucesso!")
+
 
 
     while True:
@@ -150,6 +166,8 @@ try:
         print("7 - Inserir Disciplina Lecionada")
         print("8 - Inserir Matriz Curricular")
         print("9 - Inserir Histórico")
+        print("10 - Inserir TCC")
+        print("11 - Inserir Aluno TCC")
         print("0 - Sair")
 
         opcao = input("Escolha a opção: ")
@@ -172,6 +190,10 @@ try:
             inserir_matrizcurricular()
         elif opcao == "9":
             inserir_historico()
+        elif opcao == "10":
+            inserir_tcc()
+        elif opcao == "11":
+            inserir_aluno_tcc()
         elif opcao == "0":
             break
         else:
