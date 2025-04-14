@@ -44,3 +44,11 @@ WHERE a.id NOT IN (
     JOIN Departamento d ON d.id = c.departamento_id
     WHERE d.nome ILIKE '%Engenharia%'
 );
+
+--9.
+SELECT p.id, p.nome
+FROM Professor p
+JOIN DisciplinaLecionada dl ON p.id = dl.professor_id
+JOIN HistoricoEscolar h ON h.disciplina_id = dl.disciplina_id AND h.semestre = dl.semestre
+GROUP BY p.id, p.nome
+HAVING COUNT(DISTINCT h.aluno_id) > 50;
