@@ -32,3 +32,15 @@ SELECT a.nome
 FROM Aluno a
 JOIN Curso c ON a.curso_id = c.id
 WHERE c.nome IN ('Ciência da Computação', 'Engenharia Elétrica');
+
+--8.
+SELECT a.nome
+FROM Aluno a
+WHERE a.id NOT IN (
+    SELECT DISTINCT he.aluno_id
+    FROM HistoricoEscolar he
+    JOIN Aluno al ON al.id = he.aluno_id
+    JOIN Curso c ON al.curso_id = c.id
+    JOIN Departamento d ON d.id = c.departamento_id
+    WHERE d.nome ILIKE '%Engenharia%'
+);
