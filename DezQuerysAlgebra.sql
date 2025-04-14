@@ -52,3 +52,16 @@ JOIN DisciplinaLecionada dl ON p.id = dl.professor_id
 JOIN HistoricoEscolar h ON h.disciplina_id = dl.disciplina_id AND h.semestre = dl.semestre
 GROUP BY p.id, p.nome
 HAVING COUNT(DISTINCT h.aluno_id) > 50;
+
+--10.
+SELECT h1.aluno_id, a.nome AS aluno_nome
+FROM HistoricoEscolar h1
+JOIN HistoricoEscolar h2 ON h1.aluno_id = h2.aluno_id
+JOIN Aluno a ON h1.aluno_id = a.id
+JOIN Disciplina d1 ON h1.disciplina_id = d1.id
+JOIN Disciplina d2 ON h2.disciplina_id = d2.id
+WHERE d1.nome = 'Engenharia de Software'
+  AND d2.nome = 'Redes de Computadores'
+  AND h1.semestre = h2.semestre
+  AND h1.aprovado = TRUE
+  AND h2.aprovado = TRUE;
